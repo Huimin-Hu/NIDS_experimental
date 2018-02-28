@@ -31,9 +31,19 @@ for k = 1:40
     W(:,:,k) = generateW(L, per);
 end
 [~,~,len_W] = size(W);
+
+% generate the unfixed network W
+% for k = 1:40
+%     per = k/L;
+%     W(:,:,k) = generateW(L, per);
+% end
+% [~,~,len_W] = size(W);
+
 % generate the smooth function S
 [M, x_ori, y_ori] = generateS(m, p, n,...
     'withoutNonsmoothR',min_mu,max_Lips);
+
+rng('shuffle')
 
 % find the smallest eigenvalue of W
 lambdan = zeros(len_W,1);
@@ -174,6 +184,8 @@ prob.lam = lam;
 prob.W = W;
 
 save([resSubPath,'_compa3_prob.mat'],'prob');
+
+end
 
 end
 
